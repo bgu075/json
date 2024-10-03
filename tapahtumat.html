@@ -7,7 +7,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color:#cdf3f8; /* taustaväri */
+      background-color:#cdf3f8; /* pohjaväri, joka ei kovin pahaa logon kanssa*/
       margin: 0;
       padding: 20px;
     }
@@ -35,7 +35,7 @@
       color: #555;
     }
 
-    /* Responsiivinen kuva */
+    /* Responsiivinen kuva!!!!!Tässäkin!!!!! */
     .responsive-img {
       max-width: 100%;
       height: auto;
@@ -51,11 +51,11 @@
   </nav>
 
   <h1>Tampereen Tapahtumat</h1>
-  <img src="events.jpeg" alt="Tampereen tapahtumat" class="responsive-img"> <!-- Responsiivinen kuva -->
+  <img src="events.jpeg" alt="Tampereen tapahtumat" class="responsive-img"> <!-- Responsiivinen kuva !!!!!!!-->
   <div id="tapahtumat-content"></div>
 
   <script>
-    // Haetaan Tampereen tapahtumat
+    // tapahtumat Tampereella avoimella API:lla, joka nyt toimii!!!!
     fetch('https://api.visittampere.com/api/v1/visittampere/event/published/all/?format=json&lang=fi')
       .then(function (response) {
         return response.json();
@@ -69,7 +69,7 @@
 
     function showTapahtumat(data) {
       let teksti = "<h2>Tampereella tapahtuu</h2>";
-      const maxEvents = 10; // Enimmäismäärä tapahtumia, jotka näytetään
+      const maxEvents = 10; // 10 ensimmäistä tapahtumaa näkyviin
 
       for (let i = 0; i < Math.min(data.length, maxEvents); i++) {
         teksti += `<h4>${data[i].name}</h4>`;

@@ -54,9 +54,9 @@
   <img id="weather-animation" src="weather.gif" alt="Sää-animaatio">
 
   <script>
-    // Haetaan säätiedot 
+    // Haetaan säätiedot fetchilla 
     function fetchSaa(city) {
-      const apiKey = '665ecd56dfc08dbb50feb8b8f5034e28'; // Opettajan API-avain
+      const apiKey = '665ecd56dfc08dbb50feb8b8f5034e28'; // avoin API
       fetch(`https://api.openweathermap.org/data/2.5/weather?lang=fi&q=${city}&units=metric&APPID=${apiKey}`)
         .then(response => response.json())
         .then(data => {
@@ -77,7 +77,7 @@
       document.getElementById("saa-content").innerHTML += teksti;
     }
 
-    // Haetaan sää Tampereelle
+    // Haetaan sää Tampereella esille näkyviin ja ihme, että näkyy
     fetchSaa('Tampere');
   </script>
 </body>

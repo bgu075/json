@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tampereen Tapahtumat</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color:#cdf3f8; /* taustaväri */
+      margin: 0;
+      padding: 20px;
+    }
+
+    nav {
+      margin-bottom: 20px;
+    }
+
+    nav a {
+      margin-right: 15px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #007BFF;
+    }
+
+    h1, h2 {
+      color: #333;
+    }
+
+    p, ul {
+      color: #555;
+    }
+
+    /* Responsiivinen kuva */
+    .responsive-img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Pääsivu</a> |
+    <a href="saa.html">Sää</a> |
+    <a href="toteutus.html">Toteutus</a>
+  </nav>
+
+  <h1>Tampereen Tapahtumat</h1>
+  <img src="events.jpeg" alt="Tampereen tapahtumat" class="responsive-img"> <!-- Responsiivinen kuva -->
+  <div id="tapahtumat-content"></div>
+
+  <script>
+    // Haetaan Tampereen tapahtumat
+    fetch('https://api.visittampere.com/api/v1/visittampere/event/published/all/?format=json&lang=fi')
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        showTapahtumat(data);
+      })
+      .catch(function (error) {
+        document.getElementById("tapahtumat-content").innerHTML = "<p>Tietoa ei pystytä hakemaan</p>";
+      });
+
+    function showTapahtumat(data) {
+      let teksti = "<h2>Tampereella tapahtuu</h2>";
+      const maxEvents = 10; // Enimmäismäärä tapahtumia, jotka näytetään
+
+      for (let i = 0; i < Math.min(data.length, maxEvents); i++) {
+        teksti += `<h4>${data[i].name}</h4>`;
+        teksti += `<p>${data[i].description}</p>`;
+        teksti += `<p><a href="${data[i].url}">${data[i].url}</a></p>`;
+      }
+
+      document.getElementById("tapahtumat-content").innerHTML = teksti;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toteutuksen tiedot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    nav {
+      margin-bottom: 20px;
+    }
+
+    nav a {
+      margin-right: 15px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #007BFF;
+    }
+
+    h1, h2, h3 {
+      color: #333;
+    }
+
+    p, ul {
+      color: #555;
+    }
+
+    .toteutus {
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-top: 20px;
+      background-color: #fff;
+    }
+
+    /* Responsiivinen kuva */
+    .responsive-img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">Pääsivu</a> |
+    <a href="saa.html">Sää</a> |
+    <a href="tapahtumat.html">Tapahtumat</a>
+  </nav>
+
+  <h1>Toteutuksen tiedot</h1>
+  <div id="toteutus-content" class="toteutus"></div>
+  
+  <script>
+    // Haetaan toteutuksen tiedot Mockysta
+    fetch('https://run.mocky.io/v3/18bc79d8-38a5-4857-946b-499ca3aad61e') // Käytetään uutta Mocky URL:ia
+      .then(response => {
+        if (!response.ok) throw new Error('Verkkovirhe');
+        return response.json();
+      })
+      .then(data => {
+        const content = `
+          <h3>${data.toteutuksenNimi}</h3>
+          <p>Osallistujien lukumäärä: ${data.osallistujienLukumäärä}</p>
+          <h4>Osallistujat:</h4>
+          <ul>
+            ${data.osallistujat.map(nimi => `<li>${nimi}</li>`).join('')}
+          </ul>
+          <p>Alkamisaika: ${data.alkamisAika}</p>
+          <p>LoppumisAika: ${data.loppumisAika}</p>
+          <p>Kesto: ${data.kestoViikkoina} viikkoa</p>
+          <img src="${data.kuva}" alt="Toteutuksen kuva" class="responsive-img"> <!-- Kuvan URL -->
+        `;
+        document.getElementById("toteutus-content").innerHTML = content;
+      })
+      .catch(error => {
+        document.getElementById("toteutus-content").innerHTML = "<p>Tietoa ei pystytä hakemaan</p>";
+        console.error('Virhe datan lataamisessa:', error);
+      });
+  </script>
+</body>
+</html>
